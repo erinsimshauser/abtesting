@@ -5,11 +5,11 @@ from scipy.stats import chi2
 from abtesting_test import *
 
 # You can comment out these lines! They are just here to help follow along to the tutorial.
-print(t_dist.cdf(-2, 20)) # should print .02963
-print(t_dist.cdf(2, 20)) # positive t-score (bad), should print .97036 (= 1 - .2963)
+# print(t_dist.cdf(-2, 20)) # should print .02963
+# print(t_dist.cdf(2, 20)) # positive t-score (bad), should print .97036 (= 1 - .2963)
 
-print(chi2.cdf(23.6, 12)) # prints 0.976
-print(1 - chi2.cdf(23.6, 12)) # prints 1 - 0.976 = 0.023 (yay!)
+# print(chi2.cdf(23.6, 12)) # prints 0.976
+# print(1 - chi2.cdf(23.6, 12)) # prints 1 - 0.976 = 0.023 (yay!)
 
 # TODO: Fill in the following functions! Be sure to delete "pass" when you want to use/run a function!
 # NOTE: You should not be using any outside libraries or functions other than the simple operators (+, **, etc)
@@ -101,6 +101,9 @@ def get_t_score(a, b):
     :return: number representing the t-score given lists a and b (see studio 6 guide for this equation!)
     '''
     t = (get_avg(a) - get_avg(b))/get_standard_error(a, b)
+
+    if t > 0:
+        t = t * -1
     return t
 
 def perform_2_sample_t_test(a, b):
@@ -113,9 +116,6 @@ def perform_2_sample_t_test(a, b):
     HINT: the t_dist.cdf() function might come in handy!
     '''
     t_score = get_t_score(a,b)
-
-    if t_score > 0:
-        t_score = t_score * -1
 
     return t_dist.cdf(t_score, get_2_sample_df(a,b))
 
@@ -222,16 +222,16 @@ def data_to_num_list(s):
   return list(map(float, s.split()))
 
 
-a_t1_list = data_to_num_list(a_completion) 
-b_t1_list = data_to_num_list(b_completion)
-print(get_t_score(a_t1_list, b_t1_list)) # this should be -129.500
-print(perform_2_sample_t_test(a_t1_list, b_t1_list)) # this should be 0.0000
+# a_t1_list = data_to_num_list(a_completion) 
+# b_t1_list = data_to_num_list(b_completion)
+# print(get_t_score(a_t1_list, b_t1_list)) # this should be -129.500
+# print(perform_2_sample_t_test(a_t1_list, b_t1_list)) # this should be 0.0000
 
-a_c1_list = data_to_num_list(a_return) 
-b_c1_list = data_to_num_list(b_return)
-c1_observed_grid = [a_c1_list, b_c1_list]
-print(chi2_value(c1_observed_grid)) # this should be 4.103536
-print(perform_chi2_homogeneity_test(c1_observed_grid))
+# a_c1_list = data_to_num_list(a_return) 
+# b_c1_list = data_to_num_list(b_return)
+# c1_observed_grid = [a_c1_list, b_c1_list]
+# print(chi2_value(c1_observed_grid)) # this should be 4.103536
+# print(perform_chi2_homogeneity_test(c1_observed_grid))
 """
 # t_test 1:
 a_t1_list = data_to_num_list(a1) 
